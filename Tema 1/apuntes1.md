@@ -12,6 +12,8 @@
 |`chmod`| Change Mode. Permite cambiar los permisos de un archivo|
 |`man`|Proviene de manual y nos permite obtener ayuda de un comando. Ej. `man chmod`|
 |`sudo`| Super user do|
+|`ps`|Process, muestra los procesos activos o vivos en esa terminal.El hecho de ejecutar el comando ps, lanza un proceso asociado a la ejecución del comando ps. Cuando una ejecución termina, el proceso asociado a esa ejecución muere|
+|`ps -e -o pid,ppid,command`||
 
 ## Permisos Linux
 El digito más a la izquierda corresponde a `-` para indicar que se trata de un archivo y `d` cuando se trata de un directorio.
@@ -39,3 +41,67 @@ Para observar los usuarios registrados en su sistema ejecuten  `cat /etc/passwd`
 Tiene la siguiente estructura: `idUser:x:UserID:GroupID`
 Cuando encontremos algo como `/sbin/nologin` significa que no se puede hacer login con este usuario
 
+## Comando ps
+
+* El comando ps muestra los procesos (vivos) de esa terminal o shell ejecución del comando ps muere los procesos
+
+    El hecho de ejecutar el comando ps, lanza un proceso asociado a la ejecución del comando ps
+
+    Recuerden que cuando una ejecución termina, el proceso asociado a esa ejecución muere
+
+    el comando ps es como una fotografía o instantánea de los procesos no es dinámico
+
+    <div align="center"><img src="comandoPS.png"></div>
+
+* Terminal asociada con el proceso / Terminal associed with the process **(tname=TTY)**
+
+**Time** es el tiempo que lleva ejecutandose el proceso.
+
+La salida ordenada por *pit*
+
+* Comando **man ps**: Nos permite ver toda la ayuda relacionada con el comando PS.
+    Muestra un snapshot (instantanea) de los procesos activos pero sólo los de esa terminal.
+
+## Comando ps -e -o pid,ppid,command
+
+* El comando `ps -e -o pid,ppid,command` muestra lo que le indicamos:
+
+    <div align="center"><img src="ps-e-o.png"></div>
+
+|pid|pid|owner|path|
+|--|--|--|--|
+|Proceso actual|Proceso Padre|Dueño|Ruta|
+ 
+<div align="center"><img src="ps-e-o2.png"></div>
+
+Apareceran el número de terminales:
+
+<div align="center"><img src="ps-e-o3.png"></div>
+
+## Creación de procesos
+
+En Linux hay 3 maneras de crear un proceso.
+
+* system() y viene de las librerias del lenguaje C
+* fork()
+* exec()
+
+## system
+La función system() provee una manera sencilla de ejecutar un comando desde un programa, como si fuera invocado desde un Shell. Invocando un programa con los privilegios de root usando la función system(), puede tener diferentes resultado de un sistema Linux a otro, debido a que es dependiente de la versión de Shell que se ocupe.
+
+<div align="center"><img src="system.png"></div>
+
+
+## Comando fork
+Fork le devuelve al padre el pid del hijo. Mientras que al hijo le devuelve 0
+
+<div align="center"><img src="fork.png"></div>
+
+Al llamar al fork creamos un hijo.
+
+* **Fork()** le devuelve al padre el pid del hijo.
+
+<div align="center"><img src="fork2.png"></div>
+
+Programa 5:
+<div align="center"><img src="programa5.png"></div>
