@@ -100,8 +100,50 @@ Fork le devuelve al padre el pid del hijo. Mientras que al hijo le devuelve 0
 Al llamar al fork creamos un hijo.
 
 * **Fork()** le devuelve al padre el pid del hijo.
-
+La llamada a esta función crea un nuevo proceso. El nuevo proceso o proceso hijo será una copia del proceso padre excepto por el PID y el PPID.
+Cuando realizamos una llamada a fork(), el núcleo del sistema realiza las siguientes opera-
+ciones:
+* Buscar una entrada libre en la tabla de procesos y la reserva para el proceso hijo.
+* Asigna un PID al proceso hijo, el cual es invariable y único durante toda la vida del proceso; además constituirá la clave para poder controlarlo desde otros procesos. Realiza una copia del contexto del nivel de usuario del proceso padre para el proce-
+so hijo.
 <div align="center"><img src="fork2.png"></div>
 
 Programa 5:
 <div align="center"><img src="programa5.png"></div>
+
+Programa 6:
+
+Cuando un proceso hijo está por terminar su ejecución (cuando está por morir), envía una señal a su padre. Por eso, lo ideal es que todo hijo muera antes que el padre. Pero en ocasiones sucede lo contrario, el padre muere antes que el hijo
+A este tipo de procesos se les conoce como **procesos huérfanos**(orphan process)
+Lo que hace Linux es que el proceso init (pid=1) adopta al proceso huérfano
+
+
+<div align="center"><img src="programa6.png"></div>
+
+Algo que debe de notarse, es que no se puede predecir si un proceso padre se va a seguir ejecutando antes o después de la creación del proceso hijo y viceversa, ya que los procesos se ejecutan asíncronamente debido al uso de la función fork(.Debido a este comportamiento no se debería de ejecutar código en el proceso hijo que dependa del proceso padre y viceversa; el hacer esto crea una condición de carrera (race condition), donde provocaría un comportamiento impredecible en el programa.
+
+## Exec
+Exec es una familia de funciones que varía en sus capacidades dependiendo en cómo se mande llamar la función.
+Es una familia de funciones, todas empiezan con la palabra exec y a continuación tienen 1 o 2 letras más
+
+### Funciones Exec
+
+* `int execl (char *path, char *arg0,... char *argn, (char *)0);` Esa "l" significa lista. Es decir en los argumentos de la función viene indicado el comando del nuevo proceso  junto con una lista de argumentos.
+
+    Ejecutará un comando que le estamos mandando en los argumentos, pero el comando que le pasemos a su vez podriamos tener más argumentos
+
+    Por ejemplo el comando ls: lo podemos ejecutar asi ls nada más o lo podemos ejecutar pasando argumentos u opciones del comando
+        ls -l
+        ls -l /
+
+
+* `int execv (char *path, char *argv[ ]);` donde "v" indica vector o arreglo
+
+* Estas 2 funciones son la base de las siguientes 4 funciones exec:
+
+* int execle(char *path, char *arg0,... char *argn, (char *)0, char *envp[ ]);
+* int execve(char *path, char *argv[ ], char *envp[ ]);
+* int execlp(char *file, char *argv[ ], char *argn, (char *)0);
+* int execvp(char *file, char *argv[ ]);
+
+<div align="center"><img src="exec.png"></div>
