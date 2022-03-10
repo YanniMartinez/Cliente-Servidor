@@ -147,3 +147,30 @@ Es una familia de funciones, todas empiezan con la palabra exec y a continuació
 * int execvp(char *file, char *argv[ ]);
 
 <div align="center"><img src="exec.png"></div>
+
+* **Código8_execve2** Este archivo permite ejecutar más cosas, por ejemplo mandar otro programa como parametro y a su vez más mensajes
+
+<div align="center"><img src="codigo8_execve.png"></div>
+<div align="center"><img src="codigo8_execve2.png"></div>
+<div align="center"><img src="codigo8_execve3.png"></div>
+
+* **Código Erno**, erno es una variable de error interna del sistema:
+    * `sys_nerr`: Es la longitud del error.
+
+    También se tiene una nueva versión der erno.c donde al compilar la documentación de la función strerror() está en:  [Este enlace](https://pubs.opengroup.org/onlinepubs/009604499/functions/strerror.html)
+
+
+    * La versión `erno2.c` permite listar los 135 errores y se usa otra variable para que compile correctamente.
+
+    <div align="center"><img src="erno_comparativa.png"></div>
+
+    * La versión `erno3.c` En el código errno3.c vienen algunas macros o constantes de error. Notemos que las macros van en MAYUSCULAS. Para que este comando funcione debe existir un archivo llamado **this.txt**.
+
+        La documentación de la función rename() está [aquí](https://pubs.opengroup.org/onlinepubs/000095399/functions/rename.html)
+
+        El archivo `this.txt` puede tener la siguiente estructura "Hola este es un archivo de prueba".
+
+        Al ejecutar nos dirá ue fue renombrado correctamente y lo cambiará al nombre especificado.
+
+        Sí volvemos a ejecutar nos devolverá un `errno2` debido a que no encuentra el archivo y corresponde a la macro `ENOENT`
+
